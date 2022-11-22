@@ -1,7 +1,19 @@
 import React from "react";
+import { useAppDispatch } from "../../store/hooks";
 import styles from "./CreateNotice.module.scss";
+import { createNotice } from "../../store/slices/noticeSlice";
 
 const CreateNotice: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [inputValue, setInputValue] = React.useState("");
+
+  const onclick = () => {
+    if (inputValue.trim()) {
+      dispatch(createNotice(inputValue));
+      setInputValue("");
+    }
+  };
+
   return (
     <form>
       <div className={styles.notice__form}>
@@ -9,9 +21,11 @@ const CreateNotice: React.FC = () => {
         <div className={styles.notice__create}>
           <textarea
             className={styles.notice__text}
-            placeholder="This is an awesome comment box"
+            placeholder="Write here your notice"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
           />
-          <button className="notice__btn" type="button">
+          <button onClick={onclick} className="notice__btn" type="button">
             Save
           </button>
         </div>
