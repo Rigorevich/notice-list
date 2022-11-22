@@ -8,6 +8,7 @@ const initialState: NoticeState = {
   notices: localStorage.getItem("notices")
     ? JSON.parse(localStorage.getItem("notices") as string)
     : [],
+  searchByTag: "",
 };
 
 export const noticeSlice = createSlice({
@@ -35,10 +36,14 @@ export const noticeSlice = createSlice({
       });
       localStorage.setItem("notices", JSON.stringify(state.notices));
     },
+    setSearchByTag: (state, action: PayloadAction<string>) => {
+      state.searchByTag = action.payload;
+    },
   },
 });
 
-export const { createNotice, deleteNotice, redactNotice } = noticeSlice.actions;
+export const { createNotice, deleteNotice, redactNotice, setSearchByTag } =
+  noticeSlice.actions;
 
 export const selectNotice = (state: RootState) => state.notices.notices;
 

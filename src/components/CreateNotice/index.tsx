@@ -2,6 +2,8 @@ import React from "react";
 import { useAppDispatch } from "../../store/hooks";
 import styles from "./CreateNotice.module.scss";
 import { createNotice } from "../../store/slices/noticeSlice";
+import { createTag } from "../../store/slices/tagsSlice";
+import { findTag } from "../../utils/utils";
 
 const CreateNotice: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -10,6 +12,7 @@ const CreateNotice: React.FC = () => {
   const onclick = () => {
     if (inputValue.trim()) {
       dispatch(createNotice(inputValue));
+      dispatch(createTag(findTag(inputValue)));
       setInputValue("");
     }
   };
