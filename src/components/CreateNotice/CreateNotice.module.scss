@@ -1,0 +1,39 @@
+.notice__form {
+  height: 250px;
+  width: 50vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.notice__title {
+  color: #000;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.notice__create {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+
+
+  .notice__text {
+    width: 500px;
+    height: 100px;
+    resize: none;
+    border-radius: 8px;
+    color: #555555;
+    font-size: 1em;
+    line-height: 1.4em;
+    padding: 5px 8px;
+    border: 1px solid #000;
+    background:  #fff;
+  }
+
+}
