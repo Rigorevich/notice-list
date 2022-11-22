@@ -2,6 +2,8 @@ import React from "react";
 import { useAppDispatch } from "../store/hooks";
 import { deleteNotice, redactNotice } from "../store/slices/noticeSlice";
 import { Type } from "../@types/interfaces";
+import { createTag } from "../store/slices/tagsSlice";
+import { findTag } from "../utils/utils";
 
 const Card = ({ notice }: { notice: Type }) => {
   const dispatch = useAppDispatch();
@@ -16,6 +18,7 @@ const Card = ({ notice }: { notice: Type }) => {
   const saveChanging = () => {
     if (isRedact) {
       dispatch(redactNotice({ ...notice, text: textValue }));
+      dispatch(createTag(findTag(textValue)));
     }
     setIsRedact(!isRedact);
   };

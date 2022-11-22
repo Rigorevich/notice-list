@@ -14,7 +14,7 @@ export const tagSlice = createSlice({
   initialState,
   reducers: {
     createTag: (state, action: PayloadAction<string[]>) => {
-      state.tags = [...state.tags, ...action.payload];
+      state.tags = Array.from(new Set([...state.tags, ...action.payload]));
       localStorage.setItem("tags", JSON.stringify(state.tags));
     },
     deleteTag: (state, action: PayloadAction<string>) => {
