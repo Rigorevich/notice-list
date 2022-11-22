@@ -7,6 +7,7 @@ const initialState: TagState = {
   tags: localStorage.getItem("tags")
     ? JSON.parse(localStorage.getItem("tags") as string)
     : [],
+  activeTag: "",
 };
 
 export const tagSlice = createSlice({
@@ -21,10 +22,13 @@ export const tagSlice = createSlice({
       state.tags = state.tags.filter((tag) => tag !== action.payload);
       localStorage.setItem("tags", JSON.stringify(state.tags));
     },
+    setActiveTag: (state, action: PayloadAction<string>) => {
+      state.activeTag = action.payload;
+    },
   },
 });
 
-export const { createTag, deleteTag } = tagSlice.actions;
+export const { createTag, deleteTag, setActiveTag } = tagSlice.actions;
 
 export const selectNotice = (state: RootState) => state.notices.notices;
 

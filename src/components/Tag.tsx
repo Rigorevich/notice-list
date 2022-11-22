@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch } from "../store/hooks";
-import { deleteTag } from "../store/slices/tagsSlice";
+import { deleteTag, setActiveTag } from "../store/slices/tagsSlice";
 
 const Tag = ({ tag }: { tag: string }) => {
   const dispatch = useAppDispatch();
@@ -12,7 +12,11 @@ const Tag = ({ tag }: { tag: string }) => {
   };
 
   return (
-    <div className="notice__card">
+    <div
+      className="notice__card"
+      onMouseEnter={() => dispatch(setActiveTag(tag))}
+      onMouseLeave={() => dispatch(setActiveTag(""))}
+    >
       <div className="notice__info">
         <div className="notice__text">{tag}</div>
       </div>

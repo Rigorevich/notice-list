@@ -12,7 +12,7 @@ const CreateNotice: React.FC = () => {
   const onclick = () => {
     if (inputValue.trim()) {
       dispatch(createNotice(inputValue));
-      dispatch(createTag(findTag(inputValue)));
+      dispatch(createTag(findTag(inputValue) as string[]));
       setInputValue("");
     }
   };

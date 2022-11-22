@@ -1,3 +1,7 @@
 export const findTag = (str: string) => {
-  return str.split(/[ !.?_\n]/).filter((word) => word.includes("#"));
+  return str.match(/#\w+/g);
+};
+
+export const splitText = (str: string) => {
+  return str.split(/#\w+/);
 };

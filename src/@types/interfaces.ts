@@ -11,4 +11,5 @@ export interface Type {
 
 export interface TagState {
   tags: string[];
+  activeTag: string;
 }

@@ -21,7 +21,7 @@ export const noticeSlice = createSlice({
         text: action.payload,
         tag: findTag(action.payload),
       };
-      state.notices.push(obj);
+      state.notices.push(obj as Type);
       localStorage.setItem("notices", JSON.stringify(state.notices));
     },
     deleteNotice: (state, action: PayloadAction<number>) => {

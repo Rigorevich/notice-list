@@ -1,12 +1,14 @@
 import React from "react";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { deleteNotice, redactNotice } from "../store/slices/noticeSlice";
 import { Type } from "../@types/interfaces";
 import { createTag } from "../store/slices/tagsSlice";
-import { findTag } from "../utils/utils";
+import { findTag, splitText } from "../utils/utils";
+import { text } from "stream/consumers";
 
 const Card = ({ notice }: { notice: Type }) => {
   const dispatch = useAppDispatch();
+  const { activeTag } = useAppSelector((state) => state.tags);
   const [isRedact, setIsRedact] = React.useState(false);
   const [textValue, setTextValue] = React.useState(notice.text);
 
@@ -17,8 +19,14 @@ const Card = ({ notice }: { notice: Type }) => {
 
   const saveChanging = () => {
     if (isRedact) {
-      dispatch(redactNotice({ ...notice, text: textValue }));
-      dispatch(createTag(findTag(textValue)));
+      dispatch(
+        redactNotice({
+          ...notice,
+          tag: findTag(textValue) as string[],
+          text: textValue,
+        })
+      );
+      dispatch(createTag(findTag(textValue) as string[]));
     }
     setIsRedact(!isRedact);
   };
@@ -34,7 +42,18 @@ const Card = ({ notice }: { notice: Type }) => {
               onChange={(e) => setTextValue(e.target.value)}
             ></textarea>
           ) : (
-            notice.text
+            splitText(notice.text).map((word, index) => {
+              return (
+                <div key={index}>
+                  {word}
+                  <span
+                    className={notice.tag[index] === activeTag ? "active" : ""}
+                  >
+                    {notice.tag[index]}
+                  </span>
+                </div>
+              );
+            })
           )}
         </div>
       </div>

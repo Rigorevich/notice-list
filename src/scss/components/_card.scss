@@ -40,6 +40,10 @@
 
     .notice__text {
       text-align: center;
+
+      .active {
+        color: cornflowerblue;
+      }
     }
   }
 
