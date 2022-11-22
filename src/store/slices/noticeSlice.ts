@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { NoticeState } from "../../@types/interfaces";
+import { NoticeState, Type } from "../../@types/interfaces";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 import { findTag } from "../../utils/utils";
@@ -27,11 +27,18 @@ export const noticeSlice = createSlice({
       state.notices = state.notices.filter(
         (item) => item.id !== action.payload
       );
+      localStorage.setItem("notices", JSON.stringify(state.notices));
+    },
+    redactNotice: (state, action: PayloadAction<Type>) => {
+      state.notices = state.notices.map((notice) => {
+        return notice.id === action.payload.id ? action.payload : notice;
+      });
+      localStorage.setItem("notices", JSON.stringify(state.notices));
     },
   },
 });
 
-export const { createNotice, deleteNotice } = noticeSlice.actions;
+export const { createNotice, deleteNotice, redactNotice } = noticeSlice.actions;
 
 export const selectNotice = (state: RootState) => state.notices.notices;
 

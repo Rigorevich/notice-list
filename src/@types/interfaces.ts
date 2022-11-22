@@ -1,9 +1,9 @@
 export interface NoticeState {
-  notices: Array<Type>;
+  notices: Type[];
 }
 
 export interface Type {
   id: number;
   text: string;
-  tag?: string;
+  tag?: string[];
 }
