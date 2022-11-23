@@ -13,8 +13,8 @@ const CreateNotice: React.FC = () => {
     if (inputValue.trim()) {
       dispatch(createNotice(inputValue));
       dispatch(createTag(findTag(inputValue) as string[]));
-      setInputValue("");
     }
+    setInputValue("");
   };
 
   return (
